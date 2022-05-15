@@ -4,24 +4,22 @@ import { Link } from "react-router-dom";
 
 const NavLink = ({
   linkLabel,
-  setactiveDesktop,
-  activeDesktop,
-  setactiveMobile,
-  activeMobile,
+  active,
+  setactive,
+  isDesktopNav,
+  setisDesktopNav,
 }) => {
   return (
     <li
       className={classNames({
         "relative after:absolute after:w-full after:inset-0 after:border-b-4 after:border-customOrange after:translate-y-9":
-          activeDesktop === linkLabel,
+          active === linkLabel && isDesktopNav,
       })}
     >
-      {console.log(`mobile ${activeMobile} desktop ${activeDesktop}`)}
       <Link
         to={"/" + linkLabel}
         onClick={(e) => {
-          setactiveDesktop?.(linkLabel);
-          setactiveMobile?.(linkLabel);
+          setactive(linkLabel);
         }}
         href={linkLabel.toLowerCase()}
       >
