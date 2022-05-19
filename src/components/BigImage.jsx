@@ -1,7 +1,11 @@
 import classNames from "classnames";
 import React from "react";
+import { useImages } from "../context/images-context";
+import { useOverlay } from "../context/overlay-context";
 
-const BigImage = ({ activeImg, setactiveImg, isLightBoxOn }) => {
+const BigImage = () => {
+  const { activeImg, activeImgLightBox } = useImages();
+  const { isLightBoxOn } = useOverlay();
   return (
     <div>
       <img
@@ -12,8 +16,15 @@ const BigImage = ({ activeImg, setactiveImg, isLightBoxOn }) => {
             "max-h-[30rem] min-w-[30rem] w-full": isLightBoxOn,
           }
         )}
-        src={require(`../assets/images/${activeImg.replace("-thumbnail", "")}`)}
-        alt={activeImg}
+        src={
+          isLightBoxOn
+            ? require(`../assets/images/${activeImgLightBox.replace(
+                "-thumbnail",
+                ""
+              )}`)
+            : require(`../assets/images/${activeImg.replace("-thumbnail", "")}`)
+        }
+        alt={isLightBoxOn ? activeImgLightBox : activeImg}
       />
     </div>
   );

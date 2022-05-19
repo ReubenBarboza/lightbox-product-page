@@ -1,11 +1,13 @@
-import Navbar from "./components/Navbar";
-import { useState } from "react";
+import Navbar from "./components/Navbar/Navbar";
+
 import classNames from "classnames";
 import Main from "./components/Main";
+import { useOverlay } from "./context/overlay-context";
+import { NavbarProvider } from "./context/navbar-context";
+import { ImagesProvider } from "./context/images-context";
 
 function App() {
-  const [overlay, setoverlay] = useState(false);
-
+  const { overlay } = useOverlay();
   return (
     <div
       className={classNames(
@@ -15,8 +17,12 @@ function App() {
         }
       )}
     >
-      <Navbar overlay={overlay} setoverlay={setoverlay} />
-      <Main overlay={overlay} setoverlay={setoverlay} />
+      <NavbarProvider>
+        <Navbar />
+      </NavbarProvider>
+      <ImagesProvider>
+        <Main />
+      </ImagesProvider>
     </div>
   );
 }

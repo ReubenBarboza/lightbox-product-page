@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import NavLink from "./NavLink";
 
 // before:bg-black before:absolute before:h-screen before:w-screen before:-z-10 before:opacity-70

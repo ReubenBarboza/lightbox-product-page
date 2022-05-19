@@ -1,20 +1,26 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import avatar from "../assets/images/image-avatar.png";
+import avatar from "../../assets/images/image-avatar.png";
+import { useNavbar } from "../../context/navbar-context";
+import { useOverlay } from "../../context/overlay-context";
+import useToggle from "../../hooks/useToggle";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
-const Navbar = ({ overlay, setoverlay }) => {
-  const [clicked, setclicked] = useState(false);
-  const [active, setactive] = useState(null);
-  const [isDesktopNav, setisDesktopNav] = useState(true);
+const Navbar = () => {
+  const { overlay, toggleOverlay } = useOverlay();
+  const { toggleisDesktopNavbar } = useNavbar();
+
+  const { status: hamburgerClicked, toggle: toggleHamburgerClick } =
+    useToggle(false);
+
   const links = ["Collections", "Men", "Women", "About", "Contact"];
 
   function handleHamburgerClick() {
-    setclicked((prev) => !prev);
-    setoverlay((prev) => !prev);
-    setisDesktopNav((prev) => !prev);
+    toggleHamburgerClick();
+    toggleOverlay();
+    toggleisDesktopNavbar();
   }
   return (
     <>
@@ -25,14 +31,10 @@ const Navbar = ({ overlay, setoverlay }) => {
       >
         <div className='flex items-center gap-4 md:gap-16'>
           {/* hamburger */}
-          {clicked ? (
+          {hamburgerClicked ? (
             <MobileNav
               links={links}
               handleHamburgerClick={handleHamburgerClick}
-              active={active}
-              setactive={setactive}
-              isDesktopNav={isDesktopNav}
-              setisDesktopNav={setisDesktopNav}
             />
           ) : (
             <svg
@@ -61,13 +63,7 @@ const Navbar = ({ overlay, setoverlay }) => {
           </Link>
 
           {/* Desktop nav */}
-          <DesktopNav
-            links={links}
-            active={active}
-            setactive={setactive}
-            isDesktopNav={isDesktopNav}
-            setisDesktopNav={setisDesktopNav}
-          />
+          <DesktopNav links={links} />
         </div>
         <div
           className={classNames("flex items-center gap-8", {
