@@ -4,14 +4,12 @@ const ImagesContext = createContext();
 
 const ImagesProvider = ({ children }) => {
   const [activeImg, setactiveImg] = useState("image-product-1-thumbnail.jpg");
-  const [activeImgLightBox, setactiveImgLightBox] = useState(
-    "image-product-1-thumbnail.jpg"
-  );
+  const [activeImgLightBox, setactiveImgLightBox] = useState(activeImg);
   const images = [
-    { imgName: "image-product-1-thumbnail.jpg", active: true },
-    { imgName: "image-product-2-thumbnail.jpg", active: false },
-    { imgName: "image-product-3-thumbnail.jpg", active: false },
-    { imgName: "image-product-4-thumbnail.jpg", active: false },
+    { imgName: "image-product-1-thumbnail.jpg" },
+    { imgName: "image-product-2-thumbnail.jpg" },
+    { imgName: "image-product-3-thumbnail.jpg" },
+    { imgName: "image-product-4-thumbnail.jpg" },
   ];
   const [imgData, setimgData] = useState(images);
   return (

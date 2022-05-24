@@ -1,42 +1,72 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
-import ImageThumbnailList from "./ImageThumbnailList";
-import BigImage from "./BigImage";
+
 import { useOverlay } from "../context/overlay-context";
 
-import LightBox from "./LightBox";
+import LightBox from "./LightBox/LightBox";
+import { useImages } from "../context/images-context";
+import DesktopImages from "./DesktopImages";
+import TextContent from "./TextContent";
 
 const Main = () => {
-  const { overlay, toggleOverlay, toggleLightBox } = useOverlay();
-
-  const [nextSvgPressed] = useState(false);
-  const [previousSvgPressed] = useState(false);
+  const { toggleOverlay, toggleLightBox, isLightBoxOn } = useOverlay();
+  const {
+    activeImg,
+    setactiveImg,
+    activeImgLightBox,
+    setactiveImgLightBox,
+    imgData,
+  } = useImages();
 
   function handleLightBox() {
+    const currentWidth = window.innerWidth;
+    if (currentWidth < 768) return;
     toggleLightBox();
     toggleOverlay();
+    setactiveImgLightBox(activeImg);
+  }
+  function handleLightBoxClose() {
+    toggleLightBox();
+    toggleOverlay();
+    setactiveImg(activeImgLightBox);
+  }
+
+  function handlePreviousSvgClicked() {
+    setactiveImg((prev) => {
+      let imageNumber = prev.split("-")[2];
+
+      return imageNumber > 1
+        ? prev.replace(imageNumber, parseInt(imageNumber) - 1)
+        : prev.replace(imageNumber, imgData.length);
+    });
+  }
+
+  function handleNextSvgClicked() {
+    setactiveImg((prev) => {
+      let imageNumber = prev.split("-")[2];
+
+      return imageNumber < imgData.length
+        ? prev.replace(imageNumber, parseInt(imageNumber) + 1)
+        : prev.replace(imageNumber, 1);
+    });
   }
 
   return (
-    <main className={classNames("-z-10 md:my-24 lg:mx-52 md:mx-24")}>
-      <section
-        className={classNames("", {
-          "brightness-50": overlay,
-        })}
-      >
-        <div onClick={handleLightBox} className='h-[calc(100vh_-_97px]'>
-          <BigImage />
-        </div>
-        <div>
-          <ImageThumbnailList
-            nextSvgPressed={nextSvgPressed}
-            previousSvgPressed={previousSvgPressed}
-          />
-        </div>
-      </section>
-      {/* <section>write</section> */}
+    <main
+      className={classNames(
+        "-z-10 md:my-24 md:mx-6 lg:mx-36 md:flex md:justify-evenly ld:gap-16 md:gap-8 "
+      )}
+    >
+      <DesktopImages
+        handlePreviousSvgClicked={handlePreviousSvgClicked}
+        handleNextSvgClicked={handleNextSvgClicked}
+        handleLightBox={handleLightBox}
+      />
+      <div className='md:pt-10 p-6 flex flex-col items-center '>
+        <TextContent />
+      </div>
 
-      <LightBox handleLightBox={handleLightBox} />
+      {isLightBoxOn && <LightBox handleLightBoxClose={handleLightBoxClose} />}
     </main>
   );
 };
