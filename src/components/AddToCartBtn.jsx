@@ -1,10 +1,24 @@
+import classNames from "classnames";
 import React from "react";
+import { useOverlay } from "../context/overlay-context";
+import { useProduct } from "../context/product-context";
 
 const AddToCartBtn = () => {
+  const { overlay } = useOverlay();
+  const { count, setcartCount } = useProduct();
+  const handleAddToCart = () => {
+    count === 0 ? setcartCount(null) : setcartCount(count);
+  };
   return (
     <>
       <button
-        className='flex justify-center items-center w-full gap-4 p-4 mt-4 md:mt-0 bg-customOrange rounded-lg text-white min-w-max shadow-2xl shadow-customOrange/50'
+        onClick={handleAddToCart}
+        className={classNames(
+          "flex justify-center items-center w-full gap-4 p-4 mt-4 md:mt-0 bg-customOrange rounded-lg text-white min-w-max shadow-2xl shadow-customOrange/50 hover:bg-opacity-70",
+          {
+            "-z-10": overlay,
+          }
+        )}
         type='button'
       >
         {/* cart */}

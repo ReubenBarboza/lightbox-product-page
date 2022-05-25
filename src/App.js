@@ -5,6 +5,7 @@ import Main from "./components/Main";
 import { useOverlay } from "./context/overlay-context";
 import { NavbarProvider } from "./context/navbar-context";
 import { ImagesProvider } from "./context/images-context";
+import { ProductProvider } from "./context/product-context";
 
 function App() {
   const { overlay } = useOverlay();
@@ -17,12 +18,14 @@ function App() {
         }
       )}
     >
-      <NavbarProvider>
-        <Navbar />
-      </NavbarProvider>
-      <ImagesProvider>
-        <Main />
-      </ImagesProvider>
+      <ProductProvider>
+        <NavbarProvider>
+          <Navbar />
+        </NavbarProvider>
+        <ImagesProvider>
+          <Main />
+        </ImagesProvider>
+      </ProductProvider>
     </div>
   );
 }

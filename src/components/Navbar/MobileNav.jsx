@@ -12,7 +12,7 @@ const MobileNav = ({
 }) => {
   return (
     <div
-      className={`md:hidden absolute top-0 left-0 z-10 w-52 min-h-screen bg-white shadow-lg`}
+      className={`md:hidden fixed top-0 left-0 z-10 w-52 min-h-screen bg-white shadow-lg`}
     >
       <svg
         onClick={handleHamburgerClick}

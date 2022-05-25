@@ -1,9 +1,12 @@
 import classNames from "classnames";
 import React from "react";
 import { useOverlay } from "../context/overlay-context";
+import { useProduct } from "../context/product-context";
 
 const ItemCounter = () => {
   const { overlay } = useOverlay();
+  const { count, handleCount } = useProduct();
+
   return (
     <div
       className={classNames(
@@ -14,7 +17,10 @@ const ItemCounter = () => {
       )}
     >
       {/* minus */}
-      <div className='w-4 h-4 mr-auto ml-2 cursor-pointer flex-shrink-0 flex justify-center items-center'>
+      <div
+        onClick={() => handleCount({ isIncrementing: false })}
+        className='w-4 h-4 mr-auto ml-2 cursor-pointer flex-shrink-0 flex justify-center items-center hover:opacity-60'
+      >
         <svg
           width='12'
           height='4'
@@ -30,8 +36,11 @@ const ItemCounter = () => {
           <use fill='#FF7E1B' fillRule='nonzero' xlinkHref='#a' />
         </svg>
       </div>
-      <span className='font-bold'>0</span>
-      <div className='w-4 h-4 ml-auto mr-2 cursor-pointer flex-shrink-0 flex justify-center items-center'>
+      <span className='font-bold'>{count}</span>
+      <div
+        onClick={() => handleCount({ isIncrementing: true })}
+        className='w-4 h-4 ml-auto mr-2 cursor-pointer flex-shrink-0 flex justify-center items-center hover:opacity-60'
+      >
         {/* plus */}
         <svg
           width='12'
