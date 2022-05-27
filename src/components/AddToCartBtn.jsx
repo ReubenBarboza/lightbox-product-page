@@ -14,7 +14,7 @@ const AddToCartBtn = () => {
       <button
         onClick={handleAddToCart}
         className={classNames(
-          "flex justify-center items-center w-full gap-4 p-4 mt-4 md:mt-0 bg-customOrange rounded-lg text-white min-w-max shadow-2xl shadow-customOrange/50 hover:bg-opacity-70",
+          "flex justify-center items-center w-full gap-4 p-4 mt-4 md:mt-0 bg-customOrange rounded-xl text-white min-w-max shadow-2xl shadow-customOrange/50 hover:bg-opacity-70",
           {
             "-z-10": overlay,
           }

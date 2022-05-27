@@ -2,14 +2,7 @@ import React from "react";
 import NavLink from "./NavLink";
 
 // before:bg-black before:absolute before:h-screen before:w-screen before:-z-10 before:opacity-70
-const MobileNav = ({
-  handleHamburgerClick,
-  links,
-  active,
-  setactive,
-  isDesktopNav,
-  setisDesktopNav,
-}) => {
+const MobileNav = ({ handleHamburgerClick, links }) => {
   return (
     <div
       className={`md:hidden fixed top-0 left-0 z-10 w-52 min-h-screen bg-white shadow-lg`}
@@ -30,14 +23,7 @@ const MobileNav = ({
       <nav className='relative top-16 left-6'>
         <ul className='flex flex-col md:hidden gap-5 text-veryDarkBlue font-bold'>
           {links.map((linkLabel, i) => (
-            <NavLink
-              key={linkLabel + i}
-              linkLabel={linkLabel}
-              active={active}
-              setactive={setactive}
-              isDesktopNav={isDesktopNav}
-              setisDesktopNav={setisDesktopNav}
-            />
+            <NavLink key={linkLabel + i} linkLabel={linkLabel} />
           ))}
         </ul>
       </nav>

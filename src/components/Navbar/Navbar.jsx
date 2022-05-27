@@ -6,13 +6,14 @@ import { useNavbar } from "../../context/navbar-context";
 import { useOverlay } from "../../context/overlay-context";
 import { useProduct } from "../../context/product-context";
 import useToggle from "../../hooks/useToggle";
+import CartSection from "../Cart/CartSection";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 
 const Navbar = () => {
   const { overlay, toggleOverlay } = useOverlay();
   const { toggleisDesktopNavbar } = useNavbar();
-  const { cartCount } = useProduct();
+  const { cartCount, togglecartClicked, cartClicked } = useProduct();
 
   const { status: hamburgerClicked, toggle: toggleHamburgerClick } =
     useToggle(false);
@@ -28,7 +29,7 @@ const Navbar = () => {
     <>
       <div
         className={classNames(
-          "flex justify-between p-6 md:px-0 md:mx-12 lg:mx-32 md:border-b md:border-veryDarkBlue/20 "
+          "flex justify-between relative z-10 p-6 md:px-0 md:mx-12 lg:mx-32 md:border-b md:border-veryDarkBlue/20 "
         )}
       >
         <div className='flex items-center gap-4 md:gap-16'>
@@ -73,27 +74,38 @@ const Navbar = () => {
           })}
         >
           {/* cart */}
-          <div className='relative'>
+          <div className='relative z-10'>
             <svg
-              className={classNames("cursor-pointer", {})}
+              onClick={() => togglecartClicked()}
+              className={classNames(
+                "cursor-pointer text-[#69707D] hover:text-black",
+                {}
+              )}
               width='22'
               height='20'
               xmlns='http://www.w3.org/2000/svg'
             >
               <path
                 d='M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z'
-                fill={"#69707D"}
+                fill={"currentColor"}
                 fillRule='nonzero'
               />
             </svg>
             {cartCount && (
-              <div className='absolute -top-2 -right-1 w-4 h-3 bg-customOrange rounded-full flex justify-center items-center'>
-                <span className='text-white text-[0.50rem]'>{cartCount}</span>
+              <div className='absolute -top-2 -right-1 w-4 h-[0.8rem] bg-customOrange rounded-full flex justify-center items-center'>
+                <span className='text-white text-[0.50rem] font-bold'>
+                  {cartCount}
+                </span>
               </div>
             )}
+            {cartClicked && <CartSection />}
           </div>
           {/* avatar */}
-          <img className='w-6 md:w-12' src={avatar} alt='avatar' />
+          <img
+            className='w-6 md:w-12 cursor-pointer hover:outline  rounded-full outline-customOrange/60'
+            src={avatar}
+            alt='avatar'
+          />
         </div>
       </div>
     </>

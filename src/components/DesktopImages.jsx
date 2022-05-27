@@ -37,10 +37,7 @@ const DesktopImages = ({
           />
         </svg>
       </div>
-      <div
-        onClick={handleLightBox}
-        className='h-[calc(100vh_-_97px] md:max-w-max'
-      >
+      <div onClick={handleLightBox} className='md:max-w-max overflow-hidden'>
         <BigImage />
       </div>
       {/* next */}

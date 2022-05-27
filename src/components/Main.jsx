@@ -7,9 +7,11 @@ import LightBox from "./LightBox/LightBox";
 import { useImages } from "../context/images-context";
 import DesktopImages from "./DesktopImages";
 import TextContent from "./TextContent";
+import { useProduct } from "../context/product-context";
 
 const Main = () => {
   const { toggleOverlay, toggleLightBox, isLightBoxOn } = useOverlay();
+  const { togglecartClicked } = useProduct();
   const {
     activeImg,
     setactiveImg,
@@ -24,6 +26,7 @@ const Main = () => {
     toggleLightBox();
     toggleOverlay();
     setactiveImgLightBox(activeImg);
+    togglecartClicked(false);
   }
   function handleLightBoxClose() {
     toggleLightBox();

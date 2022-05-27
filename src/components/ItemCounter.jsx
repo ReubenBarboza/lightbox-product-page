@@ -10,7 +10,7 @@ const ItemCounter = () => {
   return (
     <div
       className={classNames(
-        "flex justify-around basis-[8rem] flex-shrink-0 bg-lightGrayishBlue items-center p-4 rounded-lg",
+        "flex justify-around basis-[8rem] flex-shrink-0 bg-lightGrayishBlue items-center p-4 rounded-xl",
         {
           "bg-opacity-5": overlay,
         }

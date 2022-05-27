@@ -16,10 +16,13 @@ const NavLink = ({ linkLabel }) => {
       className={classNames({
         "relative after:absolute after:w-full after:inset-0 after:border-b-4 after:border-customOrange after:translate-y-9":
           activeLink === linkLabel && isDesktopNavbar,
-        "-z-10": overlay,
       })}
     >
       <Link
+        className={classNames("hover:text-veryDarkBlue", {
+          "text-darkGrayishBlue ": isDesktopNavbar,
+          "text-veryDarkBlue": overlay,
+        })}
         to={"/" + linkLabel}
         onClick={handleOnClick}
         href={linkLabel.toLowerCase()}

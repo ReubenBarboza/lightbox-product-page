@@ -1,11 +1,11 @@
 import { createContext, useContext, useState } from "react";
-// import useToggle from "../hooks/useToggle";
+import useToggle from "../hooks/useToggle";
 
 const ProductContext = createContext();
 
 const ProductProvider = ({ children }) => {
   const [count, setcount] = useState(0);
-  //   const { status: addedToCart, toggle: toggleaddedToCart } = useToggle(false);
+  const { status: cartClicked, toggle: togglecartClicked } = useToggle(false);
   const [cartCount, setcartCount] = useState(null);
 
   const increment = () => {
@@ -20,6 +20,19 @@ const ProductProvider = ({ children }) => {
     isIncrementing ? increment() : decrement();
   };
 
+  const data = [
+    {
+      productCompany: "SNEAKER COMPANY",
+      productName: "Fall Limited Edition Sneakers",
+      productDescription: `These low profile sneakers are your perfect casual wear companion.
+    Featuring a durable rubber outer sole, they'll withstand anything the
+    whether can offer.`,
+      productDiscount: "50%",
+      productCostAfterDiscount: "$125.00",
+      productCostBeforeDiscount: "$250.00",
+    },
+  ];
+
   return (
     <ProductContext.Provider
       value={{
@@ -27,6 +40,9 @@ const ProductProvider = ({ children }) => {
         handleCount,
         cartCount,
         setcartCount,
+        cartClicked,
+        togglecartClicked,
+        data,
       }}
     >
       {children}
